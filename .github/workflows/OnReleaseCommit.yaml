@@ -40,4 +40,4 @@ jobs:
         with:
           destination_branch: ${{ matrix.propagate-on }}
           github_token: ${{ secrets.TOKEN }}
-          pr_label: "Automatic-PR,Release-Type"
+          pr_label: "Automatic-PR,Release-Type" 
