@@ -1,6 +1,10 @@
 name: Auto merge releases
 on:
   workflow_call:
+    secrets:
+      token:
+        required: true
+
 jobs:
   automerge:
     runs-on: ubuntu-latest
