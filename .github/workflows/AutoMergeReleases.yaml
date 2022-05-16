@@ -1,14 +1,6 @@
 name: Auto merge releases
 on:
   workflow_call:
-    inputs:
-      username:
-        required: true
-        type: string
-    secrets:
-      token:
-        required: true
-
 jobs:
   automerge:
     runs-on: ubuntu-latest
