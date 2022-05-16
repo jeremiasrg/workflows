@@ -1,0 +1,15 @@
+name: Gradle Basic
+on:
+  workflow_call:
+    secrets:
+      token:
+        required: true
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v3
+      - name: Execute Gradle build
+        run: ./gradlew build

@@ -1,0 +1,43 @@
+name: On Release Commit
+on:
+  workflow_call:
+    secrets:
+      token:
+        required: true
+    inputs:
+      branch:
+        type: string
+        required: true
+
+jobs:
+  get-branches-to-propagate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Script permission
+        run: chmod +x ./scripts/branchToPropagate.sh
+      - name: get branches to propagate
+        run: ./scripts/branchToPropagate.sh ${{ inputs.branch }}
+        id: get-branches
+      - name: Show branches to merge
+        run: echo "The branches to merge  ${{ steps.get-branches.outputs.BRANCHES_TO_MERGE_STR }}"
+      - name: Show branches to merge 2
+        run: echo "The branches to merge  ${{ fromJson(steps.get-branches.outputs.BRANCHES_TO_MERGE_MTX) }}"
+    outputs:
+      branches-to-merge-str: ${{ steps.get-branches.outputs.BRANCHES_TO_MERGE_STR }}"
+  propagate:
+    needs: get-branches-to-propagate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        propagate-on: ${{ fromJson(needs.get-branches-to-propagate.outputs.branches-to-merge-str) }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: ${{ matrix.propagate-on }}
+          github_token: ${{ secrets.TOKEN }}
+          pr_label: "Automatic-PR,Release-Type"
