@@ -31,6 +31,9 @@ jobs:
 
           echo ${{ github.ref_name }}
 
+          echo '>>'
+          echo ${{ github.ref_name }} | tr -d 'release/'
+
           # get first param and remove "origin/release/"
           currentVersion=$(echo ${{ github.ref_name }} | tr -d 'release/')
 
