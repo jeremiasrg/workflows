@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Script permission
-        run: chmod +x ${{ github.action_path }}/scripts/branchToPropagate.sh
+        run: chmod +x ${{GITHUB_WORKSPACE}}/scripts/branchToPropagate.sh
       - name: get branches to propagate
         run: ${{ github.action_path }}/scripts/branchToPropagate.sh ${{ inputs.branch }}
         id: get-branches
