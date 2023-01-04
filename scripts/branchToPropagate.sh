@@ -48,5 +48,5 @@ echo $branchesToMerge
 branchesToMergeMTX=$(echo "[${branchesToMerge}]" | jq '.[]' )
 echo $branchesToMergeMTX 
 
-echo "::set-output name=BRANCHES_TO_MERGE_STR::[$branchesToMerge]"
-echo "::set-output name=BRANCHES_TO_MERGE_MTX::$branchesToMergeMTX"
+echo "echo {BRANCHES_TO_MERGE_STR}::{$branchesToMerge}"
+echo "echo {BRANCHES_TO_MERGE_MTX}::{$branchesToMergeMTX}"
