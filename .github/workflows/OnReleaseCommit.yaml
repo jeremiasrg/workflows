@@ -22,6 +22,7 @@ jobs:
       # - name: get branches to propagate
       #   run: ${{ github.action_path }}/scripts/branchToPropagate.sh ${{ inputs.branch }}
       #   shell: bash
+        id: get-branches1
       - name: get branches to propagate
         run: >
           releaseBranches=$(git branch -r | grep 'release/' | tr -d 'origin/release/' | sort -n | xargs)\
@@ -69,7 +70,6 @@ jobs:
           echo "BRANCHES_TO_MERGE_STR=[$branchesToMerge]" >> $GITHUB_OUTPUT
           echo "BRANCHES_TO_MERGE_MTX=$branchesToMergeMTX" >> $GITHUB_OUTPUT
 
-        id: get-branches
       - name: Show branches to merge
         run: echo "The branches to merge  ${{ steps.get-branches.outputs.BRANCHES_TO_MERGE_STR }}"
       - name: Show branches to merge 2
