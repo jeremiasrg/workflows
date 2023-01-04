@@ -32,7 +32,7 @@ jobs:
           echo ${{ github.ref_name }}
 
           # get first param and remove "origin/release/"
-          currentVersion=$(echo ${{ github.ref_name }} | tr -d 'origin/release/')
+          currentVersion=$(echo ${{ github.ref_name }} | tr -d 'release/')
 
           echo "currentVersion >>"
           echo $currentVersion
