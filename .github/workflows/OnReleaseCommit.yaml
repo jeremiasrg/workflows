@@ -25,7 +25,7 @@ jobs:
       - name: get branches to propagate
         id: get-branches
         run: >
-          releaseBranches=$(git branch -r | grep 'release/' | tr -d 'origin/release/' | sort -n | xargs)\
+          releaseBranches=$(git branch -r | grep 'release/' | tr -d 'origin/release/' | sort -n | xargs)
           
           echo $releaseBranches
 
