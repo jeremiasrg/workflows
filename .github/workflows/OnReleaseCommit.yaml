@@ -17,57 +17,57 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: run ls command
-        run: ls ${{ github.action_path }}
-      - name: get branches to propagate
-        run: ${{ github.action_path }}/scripts/branchToPropagate.sh ${{ inputs.branch }}
-        shell: bash
+      # - name: run ls command
+      #   run: ls ${{ github.action_path }}
       # - name: get branches to propagate
-      #   run: >
-      #     releaseBranches=$(git branch -r | grep 'release/' | tr -d 'origin/release/' | sort -n | xargs)\
-      #     echo $releaseBranches
+      #   run: ${{ github.action_path }}/scripts/branchToPropagate.sh ${{ inputs.branch }}
+      #   shell: bash
+      - name: get branches to propagate
+        run: >
+          releaseBranches=$(git branch -r | grep 'release/' | tr -d 'origin/release/' | sort -n | xargs)\
+          echo $releaseBranches
 
-      #     # Replace " " by ","
-      #     releaseBranches=$( echo ${releaseBranches// /","})
+          # Replace " " by ","
+          releaseBranches=$( echo ${releaseBranches// /","})
 
-      #     echo $releaseBranches
+          echo $releaseBranches
 
-      #     # get first param and remove "origin/release/"
-      #     currentVersion=$(echo $INPUT_BRANCH | tr -d 'origin/release/')
+          # get first param and remove "origin/release/"
+          currentVersion=$(echo $INPUT_BRANCH | tr -d 'origin/release/')
 
-      #     echo $currentVersion
+          echo $currentVersion
 
-      #     # Remove frist part of branch string 
-      #     branchesToMerge=$( echo $releaseBranches | grep -oP "$currentVersion.*")
+          # Remove frist part of branch string 
+          branchesToMerge=$( echo $releaseBranches | grep -oP "$currentVersion.*")
 
-      #     # Remove current version from string
-      #     branchesToMerge=$( echo ${branchesToMerge//$currentVersion/})
+          # Remove current version from string
+          branchesToMerge=$( echo ${branchesToMerge//$currentVersion/})
 
-      #     # add "release/" for each version
-      #     branchesToMerge=$( echo ${branchesToMerge//,/",release/"})
+          # add "release/" for each version
+          branchesToMerge=$( echo ${branchesToMerge//,/",release/"})
 
-      #     # Concat with master
-      #     branchesToMerge=$branchesToMerge","
+          # Concat with master
+          branchesToMerge=$branchesToMerge","
 
-      #     # add "release/" for each version
-      #     branchesToMerge=$( echo ${branchesToMerge//,/"\",\""})
+          # add "release/" for each version
+          branchesToMerge=$( echo ${branchesToMerge//,/"\",\""})
 
-      #     # remove the the last two caracters (,")
-      #     branchesToMerge=${branchesToMerge::-1}
+          # remove the the last two caracters (,")
+          branchesToMerge=${branchesToMerge::-1}
 
-      #     # remove the first caracter of string (",)
-      #     branchesToMerge=${branchesToMerge#??}
+          # remove the first caracter of string (",)
+          branchesToMerge=${branchesToMerge#??}
 
-      #     # Concat with master
-      #     branchesToMerge=$branchesToMerge"\"master\""
+          # Concat with master
+          branchesToMerge=$branchesToMerge"\"master\""
 
-      #     echo $branchesToMerge 
+          echo $branchesToMerge 
 
-      #     branchesToMergeMTX=$(echo "[${branchesToMerge}]" | jq '.[]' )
-      #     echo $branchesToMergeMTX 
+          branchesToMergeMTX=$(echo "[${branchesToMerge}]" | jq '.[]' )
+          echo $branchesToMergeMTX 
 
-      #     echo "{BRANCHES_TO_MERGE_STR}::{$branchesToMerge}"
-      #     echo "{BRANCHES_TO_MERGE_MTX}::{$branchesToMergeMTX}"
+          echo "::set-output name=BRANCHES_TO_MERGE_STR::[$branchesToMerge]"
+          echo "::set-output name=BRANCHES_TO_MERGE_MTX::$branchesToMergeMTX"
 
         id: get-branches
       - name: Show branches to merge
