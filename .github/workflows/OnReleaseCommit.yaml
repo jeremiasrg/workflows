@@ -36,7 +36,7 @@ jobs:
           echo $releaseBranches
 
           # get first param and remove "origin/release/"
-          currentVersion=$(echo $CURRENT_BRANCH | tr -d 'origin/release/')
+          currentVersion=$(echo ${GITHUB_REF#refs/heads/} | tr -d 'origin/release/')
 
           echo "currentVersion >>"
           echo $currentVersion
