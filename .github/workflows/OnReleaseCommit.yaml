@@ -31,11 +31,14 @@ jobs:
           # Replace " " by ","
           releaseBranches=$( echo ${releaseBranches// /","})
 
+
+          echo "releaseBranches >>"
           echo $releaseBranches
 
           # get first param and remove "origin/release/"
           currentVersion=$(echo $INPUT_BRANCH | tr -d 'origin/release/')
 
+          echo "currentVersion >>"
           echo $currentVersion
 
           # Remove frist part of branch string 
