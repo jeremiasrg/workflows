@@ -17,10 +17,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Script permission
-        run: chmod +x ./scripts/branchToPropagate.sh
+      # - name: Script permission
+        # run: chmod +x ./scripts/branchToPropagate.sh
       - name: get branches to propagate
-        run: ./scripts/branchToPropagate.sh ${{ inputs.branch }}
+        run: ${{ github.action_path }}/scripts/branchToPropagate.sh ${{ inputs.branch }}
         id: get-branches
       - name: Show branches to merge
         run: echo "The branches to merge  ${{ steps.get-branches.outputs.BRANCHES_TO_MERGE_STR }}"
