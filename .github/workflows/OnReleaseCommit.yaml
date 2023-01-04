@@ -22,8 +22,8 @@ jobs:
       # - name: get branches to propagate
       #   run: ${{ github.action_path }}/scripts/branchToPropagate.sh ${{ inputs.branch }}
       #   shell: bash
-        id: get-branches1
       - name: get branches to propagate
+        id: get-branches1
         run: >
           releaseBranches=$(git branch -r | grep 'release/' | tr -d 'origin/release/' | sort -n | xargs)\
           echo $releaseBranches
