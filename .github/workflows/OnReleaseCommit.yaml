@@ -63,8 +63,8 @@ jobs:
           branchesToMergeMTX=$(echo "[${branchesToMerge}]" | jq '.[]' )
           echo $branchesToMergeMTX 
 
-          echo "echo {BRANCHES_TO_MERGE_STR}::{$branchesToMerge}"
-          echo "echo {BRANCHES_TO_MERGE_MTX}::{$branchesToMergeMTX}"
+          echo "{BRANCHES_TO_MERGE_STR}::{$branchesToMerge}"
+          echo "{BRANCHES_TO_MERGE_MTX}::{$branchesToMergeMTX}"
 
         id: get-branches
       - name: Show branches to merge
